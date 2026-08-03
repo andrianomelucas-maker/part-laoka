@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Kajim-bola Laoka</title>
+<title>Kajin-daoka</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -191,7 +191,7 @@
 <div id="app">
   <header>
     <div>
-      <h1>Kajim-bola Laoka</h1>
+      <h1>Kajin-daoka</h1>
       <div class="sub">Fizarana ny vidin-tsakafo isan'andro &mdash; Ar</div>
     </div>
     <button id="settingsBtn" type="button" title="Ovay ny anarana">&#9881;</button>
@@ -271,7 +271,7 @@ let activeKey = null;
 function slotKey(day, meal){ return day+'-'+meal; }
 
 function renderPeople(){
-  document.getElementById('peopleTitle').textContent = `Mpianakavy (${PEOPLE.length})`;
+  document.getElementById('peopleTitle').textContent = `coloc (${PEOPLE.length})`;
   document.getElementById('people').innerHTML = PEOPLE.map(p => `<span class="tag">${p}</span>`).join('');
 }
 
