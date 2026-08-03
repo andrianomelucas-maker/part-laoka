@@ -112,6 +112,12 @@
   .checkRow input[type=checkbox]{ width:18px; height:18px; }
   #payerWrap{ margin-top:14px; }
   #payerWrap label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
+  #dishWrap{ margin-top:14px; }
+  #dishWrap label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
+  #dishInput{
+    width:100%; font-size:15px; padding:9px 10px; border-radius:6px;
+    border:1px solid var(--line); background:white; color:var(--ink); margin-top:4px;
+  }
   #priceWrap{ margin-top:14px; }
   #priceWrap label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
   #priceInput{
@@ -187,7 +193,11 @@
 <div id="modalOverlay">
   <div id="modalBox">
     <h3 id="modalTitle">Sakafo</h3>
-    <div class="msub">Marika ny olona nisakafo teo, ampidiro ny vidiny isan'olona, dia safidio izay niantoka.</div>
+    <div class="msub">Marika ny olona nisakafo teo, ampidiro ny laoka, ny vidiny isan'olona, dia safidio izay niantoka.</div>
+    <div id="dishWrap">
+      <label>Laoka (ohatra: Trondro, Anana...)</label>
+      <input type="text" id="dishInput" placeholder="Ohatra: Trondro">
+    </div>
     <div id="checkList"></div>
     <div id="priceWrap">
       <label>Vidiny isan'olona (Ar)</label>
@@ -245,7 +255,8 @@ function renderGrid(){
       const key = slotKey(day, meal);
       const slot = schedule[key];
       const filled = slot && slot.payer;
-      const label = filled ? `${slot.payer}<br>(${slot.participants.length}p &middot; ${slot.price}Ar)` : '&mdash;';
+      const dishLine = filled && slot.dish ? `<br><span style="font-style:italic;">${slot.dish}</span>` : '';
+      const label = filled ? `${slot.payer}${dishLine}<br>(${slot.participants.length}p &middot; ${slot.price}Ar)` : '&mdash;';
       html += `<td><button type="button" class="slotBtn${filled?' filled':''}" data-key="${key}">${label}</button></td>`;
     });
     html += '</tr>';
@@ -274,6 +285,7 @@ function openModal(key){
     chk.addEventListener('change', updatePayerOptions);
   });
 
+  document.getElementById('dishInput').value = slot && slot.dish ? slot.dish : '';
   document.getElementById('priceInput').value = slot ? slot.price : DEFAULT_PRICE;
 
   updatePayerOptions();
@@ -306,10 +318,11 @@ document.getElementById('saveSlot').addEventListener('click', () => {
   const payer = document.getElementById('payerSelect').value;
   const priceRaw = document.getElementById('priceInput').value;
   const price = parseFloat(priceRaw) || DEFAULT_PRICE;
+  const dish = document.getElementById('dishInput').value.trim();
   if(checked.length === 0 || !payer){
     delete schedule[activeKey];
   } else {
-    schedule[activeKey] = { participants: checked, payer, price };
+    schedule[activeKey] = { participants: checked, payer, price, dish };
   }
   saveSchedule();
   renderGrid();
