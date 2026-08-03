@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kajim-bola-v3';
+const CACHE_NAME = 'kajin-daoko-v4';
 const ASSETS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './bg-river.jpg'];
 
 self.addEventListener('install', event => {
